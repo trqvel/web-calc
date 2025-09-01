@@ -50,7 +50,7 @@ func getTokens(expression string) []string {
 
 func makeOperation(numeric []float64, operator []rune) ([]float64, []rune, error) {
 	if len(numeric) < 2 {
-		return numeric, operator, errors.New("insufficient values in numeric stack for operation!")
+		return numeric, operator, errors.New("insufficient values in numeric stack for operation")
 	}
 
 	b := numeric[len(numeric)-1]
@@ -73,7 +73,7 @@ func Calc(expression string) (float64, error) {
 	var containsNum bool
 
 	if len(expression) == 0 {
-		return 0, errors.New("empty expression!")
+		return 0, errors.New("empty expression")
 	}
 
 	for _, c := range expression {
@@ -82,7 +82,7 @@ func Calc(expression string) (float64, error) {
 		}
 	}
 	if !containsNum {
-		return 0, errors.New("not contain numbers!")
+		return 0, errors.New("not contain numbers")
 	}
 
 	i := len(expression) - 1
@@ -92,7 +92,7 @@ func Calc(expression string) (float64, error) {
 	if i >= 0 {
 		check := rune(expression[i])
 		if !unicode.IsDigit(check) && check != ')' {
-			return 0, errors.New("ends incorrectly!")
+			return 0, errors.New("ends incorrectly")
 		}
 	}
 
@@ -111,7 +111,7 @@ func Calc(expression string) (float64, error) {
 				}
 			}
 			if len(operatorStack) == 0 {
-				return 0, errors.New("mismatched parentheses!")
+				return 0, errors.New("mismatched parentheses")
 			}
 			operatorStack = operatorStack[:len(operatorStack)-1]
 		} else {
@@ -135,14 +135,16 @@ func Calc(expression string) (float64, error) {
 	}
 
 	if len(numericStack) != 1 {
-		return 0, errors.New("error in expression evaluation!")
+		return 0, errors.New("error in expression evaluation")
 	}
 
 	return numericStack[0], nil
 }
 
 func main() {
-	res, err := Calc("1+9-3+4*2-18/6+(5+7-1*11)")
+	var expr string
+	fmt.Scan(&expr)
+	res, err := Calc(expr)
 	if err != nil {
 		fmt.Println(err)
 	} else {
